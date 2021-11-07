@@ -1,0 +1,21 @@
+{
+ "debug": true,
+  "pid": "agent.pid",
+  "hostname": "",
+  "logfile": "/var/run/agent.log",
+  "transfer": {
+    "enable": "true",
+    "addr":  ["127.0.0.1:8888"
+      ],
+    "internal" : "60",
+    "timeout" : "120"
+  },
+  "http" : {
+    "listen": "8080"
+  },
+  "collector": [
+    "eth",
+    "disk"
+  ]
+
+}
