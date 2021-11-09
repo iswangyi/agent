@@ -16,7 +16,7 @@ func FindCheckProcess() ([]*process.Process, error) {
 //进程无法感知自己，采用第三方库检测
 func getAgentList() []string {
 	list, _ := FindCheckProcess()
-	agentNum := []string{}
+	var agentNum []string
 	for _, v := range list {
 		info, _ := v.Name()
 		if info == "agent_osx" {
@@ -34,23 +34,32 @@ func StartHandle() {
 		os.Exit(1)
 	}
 	agentList := getAgentList()
-	if len(agentList) > 0 {
+	if len(agentList) > 1 {
+		fmt.Println(agentList)
 		logger.Fatal("start up failed, agent process exists")
 		os.Exit(1)
 	}
 	cmd := exec.Command(os.Args[0], "main")
-	cmd.Start()
+	err := cmd.Start()
+	if err != nil {
+		logger.StartupInfo("start cmd.start", err)
+	}
 	logger.Info("init config successful")
 	logger.Info("version", GetVersion())
 	logger.Info("pid is:", cmd.Process.Pid)
 	savePID(cmd.Process.Pid)
-	os.Exit(0)
+	//os.Exit(0)
 }
 
 //保存pid信息
 func savePID(pid int) {
-	config.Pid = strconv.Itoa(pid)
+	Config().Pid = strconv.Itoa(pid)
+	logger.StartupInfo("已保存pid至cfg.json")
 	file, err := os.Create(Config().Pid)
+	_, err = file.WriteString(strconv.Itoa(pid))
+	if err != nil {
+		logger.StartupInfo("save pid failed")
+	}
 	if err != nil {
 		fmt.Println("pid file not exists")
 		logger.FatalInfo("没有pid")
@@ -62,4 +71,5 @@ func savePID(pid int) {
 
 		}
 	}(file)
+	file.Sync()
 }
