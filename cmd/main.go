@@ -9,8 +9,8 @@ import (
 	"os"
 	"os/signal"
 	"strings"
+	"sync"
 	"syscall"
-	"time"
 )
 
 func main() {
@@ -29,15 +29,18 @@ func main() {
 	}
 	settings.LoadConfiguration()
 	settings.InitLocalIp()
+	var wg sync.WaitGroup
 	if strings.ToLower(os.Args[1]) == "main" {
+		http.Start()
+		wg.Add(1)
 		go func() {
+			defer wg.Done()
 			fmt.Println("启动main程序2:", os.Args[1])
 			//利用net/http具备守护进程的能力
 			goHttp.ListenAndServe("0.0.0.0:10028", nil)
 		}()
 		fmt.Println("启动main程序3:", os.Args[1])
-		http.Start()
 	}
 	settings.HandleControl(os.Args[1])
-	time.Sleep(10 * time.Second)
+	wg.Wait()
 }

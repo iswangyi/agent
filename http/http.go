@@ -19,9 +19,12 @@ func Start() {
 			}
 		}
 		conn = fasthttp.CompressHandler(conn)
-		fasthttp.ListenAndServe(addr, conn)
+		err := fasthttp.ListenAndServe(addr, conn)
+		if err != nil {
+			logger.Info("fastHttp Listen error", err)
+		}
 	} else {
-		logger.StartupInfo("cfg.config 中的addr配置错误", addr)
+		logger.StartupInfo("cfg.config 中的addr配置错误:", addr)
 	}
 
 }

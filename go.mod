@@ -7,5 +7,5 @@ require (
 	github.com/shirou/gopsutil v3.21.10+incompatible
 	github.com/sirupsen/logrus v1.8.1
 	github.com/tklauser/go-sysconf v0.3.9 // indirect
-	github.com/valyala/fasthttp v1.31.0 // indirect
+	github.com/valyala/fasthttp v1.31.0
 )

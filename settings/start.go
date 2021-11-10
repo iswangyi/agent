@@ -48,7 +48,7 @@ func StartHandle() {
 	logger.Info("version", GetVersion())
 	logger.Info("pid is:", cmd.Process.Pid)
 	savePID(cmd.Process.Pid)
-	//os.Exit(0)
+	os.Exit(0)
 }
 
 //保存pid信息
