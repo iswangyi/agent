@@ -13,14 +13,14 @@ var (
 )
 
 func Init() error {
-	//设置日志格式为json
-	err := errors.New("初始化")
+
+	err := errors.New("logger已被初始化")
 	intiLog.Do(func() {
 		err = nil
 		logger = log.New()
 		logger.Formatter = &log.TextFormatter{
 			FullTimestamp:   true,
-			TimestampFormat: "2021-12-01 12:22:22",
+			TimestampFormat: "2006-01-02 15:04:05",
 		}
 		var filename = "./logfile.log"
 		f, _ := os.OpenFile(filename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
@@ -35,10 +35,10 @@ func WithField(key string, value interface{}) *log.Entry {
 }
 
 func Debug(args ...interface{}) {
-	log.Info(args)
+	logger.Debug(args)
 }
 func Info(args ...interface{}) {
-	log.Info(args)
+	logger.Info(args)
 }
 func StartupInfo(msg ...interface{}) error {
 	if err := Init(); err != nil {
@@ -49,7 +49,7 @@ func StartupInfo(msg ...interface{}) error {
 	return nil
 }
 func Fatal(args ...interface{}) {
-	log.Fatal(args)
+	logger.Fatal(args)
 }
 func FatalInfo(msg ...interface{}) error {
 	if err := Init(); err != nil {
