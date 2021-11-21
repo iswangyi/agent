@@ -1,7 +1,7 @@
 package models
 
 import (
-	Mtils "agent/utils"
+	Mutils "agent/utils"
 	"fmt"
 )
 

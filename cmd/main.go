@@ -3,7 +3,6 @@ package main
 import (
 	"agent/http"
 	log "agent/logger"
-	"agent/models"
 	"agent/settings"
 	"fmt"
 	goHttp "net/http"
@@ -31,7 +30,6 @@ func main() {
 	settings.LoadConfiguration()
 	settings.InitLocalIp()
 	if strings.ToLower(os.Args[1]) == "main" {
-		models.PromCollect()
 		http.Start()
 		go func() {
 			//利用net/http具备守护进程的能力
