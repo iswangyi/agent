@@ -62,9 +62,3 @@ func FatalInfo(msg ...interface{}) error {
 	WithField("key", "Fatal error").Fatal(msg...)
 	return nil
 }
-
-func main()  {
-	Init()
-	StartupInfo("log")
-	logger.WithField("fffl","ffff11")
-}
