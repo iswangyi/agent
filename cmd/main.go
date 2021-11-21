@@ -2,19 +2,20 @@ package main
 
 import (
 	"agent/http"
+	log "agent/logger"
+	"agent/models"
 	"agent/settings"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	goHttp "net/http"
 	"os"
 	"os/signal"
 	"strings"
-	"sync"
 	"syscall"
 )
 
 func main() {
-
+	log.Init()
+	//处理程序接收到的系统signal
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, os.Interrupt, os.Kill, syscall.SIGTERM)
 	go func() {
@@ -29,18 +30,13 @@ func main() {
 	}
 	settings.LoadConfiguration()
 	settings.InitLocalIp()
-	var wg sync.WaitGroup
 	if strings.ToLower(os.Args[1]) == "main" {
+		models.PromCollect()
 		http.Start()
-		wg.Add(1)
 		go func() {
-			defer wg.Done()
-			fmt.Println("启动main程序2:", os.Args[1])
 			//利用net/http具备守护进程的能力
 			goHttp.ListenAndServe("0.0.0.0:10028", nil)
 		}()
-		fmt.Println("启动main程序3:", os.Args[1])
 	}
 	settings.HandleControl(os.Args[1])
-	wg.Wait()
 }

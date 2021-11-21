@@ -13,7 +13,6 @@ func Start() {
 			switch string(ctx.Path()) {
 			case "/v1/check/health":
 				agentStatusRoutes(ctx)
-
 			default:
 				ctx.Error("Not Found", fasthttp.StatusNotFound)
 			}

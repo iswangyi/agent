@@ -1,10 +1,9 @@
 package settings
 
 import (
-	"agent/logger"
+	log "agent/logger"
 	"agent/utils"
 	"encoding/json"
-	log "github.com/sirupsen/logrus"
 	"net"
 	"os"
 	"strings"
@@ -102,7 +101,7 @@ func InitLocalIp() {
 			log.Info("get local addr failed")
 		} else {
 			Ip = strings.Split(conn.LocalAddr().String(), ":")[0]
-			logger.StartupInfo(Ip)
+			log.StartupInfo(Ip)
 			conn.Close()
 			break
 		}
@@ -110,7 +109,7 @@ func InitLocalIp() {
 	if Ip != "" {
 		LocalIp = Ip
 	} else {
-		logger.Fatal("get local addr failed")
+		log.Fatal("get local addr failed")
 	}
 }
 
