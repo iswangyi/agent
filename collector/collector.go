@@ -1,6 +1,11 @@
 package collector
 
-import "agent/settings"
+import (
+	"agent/metrics"
+	"agent/settings"
+	"go/format"
+	"time"
+)
 
 func Collect( )  {
 	if !settings.Config().Transfer.Enable {
@@ -10,9 +15,27 @@ func Collect( )  {
 		return
 	}
 
-	for _,v := range
+	for _,v := range metrics.Mappers {
+		go
+	}
+}
 
-
-
+func collect(sec int64,fns *metrics.FuncsAndInterval)  {
+	t := time.NewTicker(time.Second * time.Duration(sec)).C
+	for {
+		<-t
+		switch expr {
+		
+		}	
+			
+		
+	}
 	
+
+
+
+
+
+
+
 }

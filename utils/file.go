@@ -1,10 +1,19 @@
 package utils
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
 )
+
+// PK 合并部分监控指标信息
+func PK(endpoint, metric string, tags map[string]string) string {
+	if tags == nil || len(tags) == 0 {
+		return fmt.Sprintf("%s/%s", endpoint, metric)
+	}
+	return fmt.Sprintf("%s/%s/%s", endpoint, metric, SortedTags(tags))
+}
 
 // IsExist 判断文件是否存在
 func IsExist(fp string) bool {

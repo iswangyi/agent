@@ -2,10 +2,9 @@ package main
 
 import (
 	"agent/http"
-	"agent/models"
+	log "agent/logger"
 	"agent/settings"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	goHttp "net/http"
 	"os"
 	"os/signal"
@@ -14,7 +13,8 @@ import (
 )
 
 func main() {
-
+	log.Init()
+	//处理程序接收到的系统signal
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, os.Interrupt, os.Kill, syscall.SIGTERM)
 	go func() {
@@ -30,7 +30,6 @@ func main() {
 	settings.LoadConfiguration()
 	settings.InitLocalIp()
 	if strings.ToLower(os.Args[1]) == "main" {
-		models.PromCollect()
 		http.Start()
 		go func() {
 			//利用net/http具备守护进程的能力

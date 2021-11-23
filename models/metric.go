@@ -1,45 +1,61 @@
 package models
 
 import (
-	"agent/logger"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
+	Mutils "agent/utils"
+	"fmt"
 )
 
-type SystemCollector struct {
-	CpuMetric        *prometheus.Desc
-	ServerInfoMetric *prometheus.Desc
+type MetricValue struct {
+	Endpoint  string      `json:"endpoint"`
+	Metric    string      `json:"metric"`
+	Value     interface{} `json:"value"`
+	Step      int64       `json:"step"`
+	Type      string      `json:"counterType"`
+	Tags      string      `json:"tags"`
+	Timestamp int64       `json:"timestamp"`
 }
 
-func NewSystemCollector() *SystemCollector {
-	variableLabels := []string{"zheng"}
-	constLabels := make(map[string]string)
-	constLabels["env"] = "prod"
-	return &SystemCollector{
-		CpuMetric:        prometheus.NewDesc("CpuLoad", "cpu load info", variableLabels, constLabels),
-		ServerInfoMetric: prometheus.NewDesc("network", "network speed", variableLabels, constLabels),
-	}
+func (this *MetricValue) String() string {
+	return fmt.Sprintf("Endpoint:%s,Metric:%s,Value:%v,Step:%d,Type:%s,Tags:%s,Timestamp:%d",
+		this.Endpoint,
+		this.Metric,
+		this.Value,
+		this.Step,
+		this.Type,
+		this.Tags,
+		this.Timestamp)
 }
 
-func (collect *SystemCollector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- collect.CpuMetric
-	ch <- collect.ServerInfoMetric
-
+type MetaData struct {
+	Metric      string            `json:"metric"`
+	Endpoint    string            `json:"endpoint"`
+	Timestamp   int64             `json:"timestamp"`
+	Step        int64             `json:"step"`
+	Value       float64           `json:"value"`
+	CounterType string            `json:"counterType"`
+	Tags        map[string]string `json:"tags"`
 }
 
-func (collect *SystemCollector) Collect(ch chan<- prometheus.Metric) {
-	var metricValue float64
-
-	if 1 == 1 {
-		metricValue = 1
-	}
-	ch <- prometheus.MustNewConstMetric(collect.CpuMetric, prometheus.GaugeValue, metricValue)
-	ch <- prometheus.MustNewConstMetric(collect.ServerInfoMetric, prometheus.CounterValue, metricValue, "kk")
+type JsonMetaData struct {
+	Metric      string      `json:"metric"`
+	Endpoint    string      `json:"endpoint"`
+	Timestamp   int64       `json:"timestamp"`
+	Step        int64       `json:"step"`
+	Value       interface{} `json:"value"`
+	CounterType string      `json:"counterType"`
+	Tags        string      `json:"tags"`
 }
 
-func PromCollect() {
-	logger.StartupInfo("start collect ")
-	sys := NewSystemCollector()
-	prometheus.MustRegister(sys)
-	promhttp.Handler()
+func (t *JsonMetaData) String() string {
+	return fmt.Sprintf("<JsonMetaData Endpoint:%s, Metric:%s, Tags:%s, DsType:%s, Step:%d, Value:%v, Timestamp:%d>",
+		t.Endpoint, t.Metric, t.Tags, t.CounterType, t.Step, t.Value, t.Timestamp)
+}
+
+func (t *MetaData) String() string {
+	return fmt.Sprintf("<MetaData Endpoint:%s, Metric:%s, Timestamp:%d, Step:%d, Value:%f, Tags:%v>",
+		t.Endpoint, t.Metric, t.Timestamp, t.Step, t.Value, t.Tags)
+}
+
+func (t *MetaData) PK() string {
+	return Mutils.PK(t.Endpoint, t.Metric, t.Tags)
 }
