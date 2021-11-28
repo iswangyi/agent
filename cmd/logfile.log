@@ -1,2 +1,12 @@
 time="2021-11-20 20:59:56" level=info msg="[read config file /Users/zhengjunxiong/go/src/agent/cmd/cfg.json successfully]"
 time="2021-11-20 20:59:57" level=info msg="[read config file /Users/zhengjunxiong/go/src/agent/cmd/cfg.json successfully]"
+time="2021-11-27 12:23:51" level=info msg="read config file/Users/zhengjunxiong/go/src/agent/cmd/cfg.jsonsuccessfully"
+time="2021-11-27 12:23:51" level=info msg=192.168.0.58 key=startup
+time="2021-11-27 12:25:21" level=info msg="read config file/Users/zhengjunxiong/go/src/agent/cmd/cfg.jsonsuccessfully"
+time="2021-11-27 12:25:21" level=info msg=192.168.0.58 key=startup
+time="2021-11-27 12:26:03" level=info msg="read config file/Users/zhengjunxiong/go/src/agent/cmd/cfg.jsonsuccessfully"
+time="2021-11-27 12:26:08" level=info msg="get local addr failed"
+time="2021-11-27 12:26:08" level=fatal msg="get local addr failed"
+time="2021-11-27 12:26:14" level=info msg="read config file/Users/zhengjunxiong/go/src/agent/cmd/cfg.jsonsuccessfully"
+time="2021-11-27 12:26:14" level=info msg="get local addr failed"
+time="2021-11-27 12:26:14" level=fatal msg="get local addr failed"

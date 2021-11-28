@@ -1,6 +1,6 @@
 package settings
 
-func HandleControl(arg string)  {
+func HandleControl(arg string) {
 	switch arg {
 	case "start":
 		StartHandle()

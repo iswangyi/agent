@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func DefaultHandle()  {
-	fmt.Printf("未知命令: %v\n",os.Args[1])
+func DefaultHandle() {
+	fmt.Printf("未知命令: %v\n", os.Args[1])
 	fmt.Printf("使用说明: %s [start stop version]\n")
 }

@@ -62,7 +62,7 @@ func savePID(pid int) {
 	}
 	if err != nil {
 		fmt.Println("pid file not exists")
-		logger.FatalInfo("没有pid")
+		logger.Fatal("没有PID")
 		os.Exit(1)
 	}
 	defer func(file *os.File) {
