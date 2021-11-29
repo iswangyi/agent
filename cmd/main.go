@@ -3,7 +3,7 @@ package main
 import (
 	"agent/collector"
 	"agent/http"
-	log "agent/logger"
+	"agent/logger"
 	"agent/metrics"
 	"agent/settings"
 	"fmt"
@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	log.Init()
+	logger.Init()
 
 	//处理程序接收到的系统signal
 	ch := make(chan os.Signal, 1)
@@ -23,8 +23,8 @@ func main() {
 	go func() {
 		signalType := <-ch
 		signal.Stop(ch)
-		log.Info("退出")
-		log.Info("收到os信号类型:", signalType)
+		logger.Info("退出")
+		logger.Info("收到os信号类型:", signalType)
 	}()
 	if len(os.Args) != 2 {
 		fmt.Println("Start error, [start|stop|version]")
