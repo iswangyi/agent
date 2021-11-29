@@ -6,9 +6,10 @@ require (
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/shirou/gopsutil v3.21.10+incompatible
 	github.com/sirupsen/logrus v1.8.1
+	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.9 // indirect
 	github.com/valyala/fasthttp v1.31.0
-	go.uber.org/dig v1.12.0 // indirect
-	go.uber.org/fx v1.15.0 // indirect
-	gopkg.in/yaml.v2 v2.3.0 // indirect
+	golang.org/x/sys v0.0.0-20210903071746-97244b99971b // indirect
+	gorm.io/driver/mysql v1.2.0
+	gorm.io/gorm v1.22.3
 )

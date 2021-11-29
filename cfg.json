@@ -2,12 +2,12 @@
  "debug": true,
   "pid": "agent.pid",
   "hostname": "",
-  "logfile": "/var/run/agent.log",
+  "logfile": "agent.log",
   "transfer": {
     "enable": "true",
     "addr":  ["127.0.0.1:8888"
       ],
-    "internal" : "60",
+    "internal" : 15,
     "timeout" : "120"
   },
   "http" : {
@@ -16,6 +16,11 @@
   "collector": [
     "eth",
     "disk"
-  ]
-
+  ],
+  "mysql": {
+    "mysqlhost": "127.0.0.1",
+    "mysqlport": "3306",
+    "mysqlpasswd": "fsdaf123bfdsfABCK",
+    "mysqluser": "root"
+  }
 }
