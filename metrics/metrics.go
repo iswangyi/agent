@@ -7,7 +7,7 @@ import (
 
 type FuncsAndInterval struct {
 	Fs       []func() []*models.MetricValue
-	Interval int
+	Interval uint8
 }
 
 var Mappers []*FuncsAndInterval

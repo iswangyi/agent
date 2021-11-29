@@ -1,7 +1,7 @@
 package settings
 
 import (
-	"agent/logger"
+	logger "agent/logger"
 	"fmt"
 	"github.com/shirou/gopsutil/process"
 	"os"

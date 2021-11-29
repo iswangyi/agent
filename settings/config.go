@@ -1,7 +1,7 @@
 package settings
 
 import (
-	log "agent/logger"
+	"agent/logger"
 	"agent/utils"
 	"encoding/json"
 	"net"
@@ -25,7 +25,7 @@ type GlobalConfig struct {
 type TransferConfig struct {
 	Enable   bool     `json:"enable"`
 	Addr     []string `json:"addr"`
-	Interval int      `json:"interval"`
+	Interval uint8    `json:"interval"`
 	Timeout  int      `json:"timeout"`
 }
 type HttpConfig struct {
@@ -58,22 +58,22 @@ func LoadConfiguration() {
 	builder.WriteString(filePath)
 	cfg := builder.String()
 	if !utils.IsExist(cfg) {
-		log.Fatal("config file isn't exists:", cfg)
+		logger.Fatal("config file isn't exists:", cfg)
 	}
 	ConfigFile = cfg
 	ConfigContent, err := utils.ToTrimString(cfg)
 	if err != nil {
-		log.Fatal("read config file", cfg, "fail", err)
+		logger.Fatal("read config file", cfg, "fail", err)
 	}
 	var c GlobalConfig
 	err = json.Unmarshal([]byte(ConfigContent), &c)
 	if err != nil {
-		log.Fatal("parse config file", cfg, "fail", err)
+		logger.Fatal("parse config file", cfg, "fail", err)
 	}
 	lock.Lock()
 	defer lock.Unlock()
 	config = &c
-	log.Info("read config file", cfg, "successfully")
+	logger.Info("read config file", cfg, "successfully")
 }
 
 // Hostname 获取主机名称
@@ -84,7 +84,7 @@ func Hostname() (string, error) {
 	}
 	hostname, err := os.Hostname()
 	if err != nil {
-		log.Info("get hostname err")
+		logger.Info("get hostname err")
 	}
 	return hostname, nil
 }
@@ -98,10 +98,10 @@ func InitLocalIp() {
 	for _, ip := range addr {
 		conn, err := net.DialTimeout("tcp", ip, time.Second*5)
 		if err != nil {
-			log.Info("get local addr failed")
+			logger.Info("get local addr failed")
 		} else {
 			Ip = strings.Split(conn.LocalAddr().String(), ":")[0]
-			log.StartupInfo(Ip)
+			logger.StartupInfo(Ip)
 			conn.Close()
 			break
 		}
@@ -109,7 +109,7 @@ func InitLocalIp() {
 	if Ip != "" {
 		LocalIp = Ip
 	} else {
-		log.Fatal("get local addr failed")
+		logger.Fatal("get local addr failed")
 	}
 }
 

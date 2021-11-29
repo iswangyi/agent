@@ -30,9 +30,8 @@ func Collect() {
 }
 
 func collect(sec int64, fns []func() []*models.MetricValue) {
-	d := time.Duration(15)
-	logger.ToMOCDebug("sec:", sec)
-	t := time.NewTicker(time.Second * d)
+	logger.ToMOCDebug("采集间隔sec:", sec)
+	t := time.NewTicker(time.Second * time.Duration(sec))
 	defer t.Stop()
 
 	for {
@@ -50,9 +49,6 @@ func collect(sec int64, fns []func() []*models.MetricValue) {
 			if items == nil {
 				continue
 			}
-
-			log.Println("items:   ", items)
-			logger.Debug(items)
 
 			if len(items) == 0 {
 				continue

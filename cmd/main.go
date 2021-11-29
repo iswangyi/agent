@@ -31,7 +31,6 @@ func main() {
 		os.Exit(1)
 	}
 	settings.LoadConfiguration()
-	settings.InitLocalIp()
 	metrics.BuildMappers()
 	collector.Collect()
 	if strings.ToLower(os.Args[1]) == "main" {
