@@ -1,8 +1,10 @@
 package main
 
 import (
+	"agent/collector"
 	"agent/http"
 	log "agent/logger"
+	"agent/metrics"
 	"agent/settings"
 	"fmt"
 	goHttp "net/http"
@@ -14,6 +16,7 @@ import (
 
 func main() {
 	log.Init()
+
 	//处理程序接收到的系统signal
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, os.Interrupt, os.Kill, syscall.SIGTERM)
@@ -29,6 +32,8 @@ func main() {
 	}
 	settings.LoadConfiguration()
 	settings.InitLocalIp()
+	metrics.BuildMappers()
+	collector.Collect()
 	if strings.ToLower(os.Args[1]) == "main" {
 		http.Start()
 		go func() {

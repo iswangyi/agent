@@ -19,7 +19,7 @@ func processInfo(pid int) (string, error) {
 	}
 	if _, err := p.Cmdline(); err == nil {
 		msg := fmt.Sprintf("cmd +args:")
-		logger.FatalInfo(msg)
+		logger.Fatal(msg)
 		return msg, err
 	}
 	return "", nil
@@ -30,18 +30,18 @@ func StopHandle() {
 		data, err := ioutil.ReadFile(Config().Pid)
 		if err != nil {
 			fmt.Println("agent not running")
-			logger.FatalInfo("Not Running")
+			logger.Fatal("Not Running")
 		}
 		logger.StartupInfo(string(data))
 		ProcessId, err := strconv.Atoi(string(data))
 		if err != nil {
 			fmt.Println("Unable to read and praise id")
-			logger.FatalInfo("get pid error")
+			logger.Fatal("get pid error")
 		}
 		//二次校验
 		process, err := os.FindProcess(ProcessId)
 		if err != nil {
-			logger.FatalInfo("get pid error")
+			logger.Fatal("get pid error")
 		}
 		_ = os.Remove(Config().Pid)
 		PidInfo, err := processInfo(ProcessId)

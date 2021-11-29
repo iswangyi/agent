@@ -1,12 +1,12 @@
 package metrics
 
 import (
-	model "agent/models"
+	models "agent/models"
 	"agent/settings"
 )
 
 type FuncsAndInterval struct {
-	Fs       []func() []*model.MetricValue
+	Fs       []func() []*models.MetricValue
 	Interval int
 }
 
@@ -16,15 +16,15 @@ func BuildMappers() {
 	Interval := settings.Config().Transfer.Interval
 
 	Mappers = []*FuncsAndInterval{
+		//		&FuncsAndInterval{
+		//			Fs: []func() []*models.MetricValue{
+		//				SocketStatSummaryMetrics,
+		//			},
+		//			Interval: Interval,
+		//		},
 		&FuncsAndInterval{
-			Fs: []func() []*model.MetricValue{
-				CpuMetrics,
-			},
-			Interval: Interval,
-		},
-		&FuncsAndInterval{
-			Fs: []func() []*model.MetricValue{
-				SocketStatSummaryMetrics,
+			Fs: []func() []*models.MetricValue{
+				LoadAvgMetrics,
 			},
 			Interval: Interval,
 		},
