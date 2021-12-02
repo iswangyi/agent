@@ -38,7 +38,7 @@ func main() {
 	//初始化监控项
 	metrics.BuildMappers()
 	//执行监控
-	collector.Collect()
+	go collector.Collect()
 	if strings.ToLower(os.Args[1]) == "main" {
 		http.Start()
 		go func() {
