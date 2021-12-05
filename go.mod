@@ -10,6 +10,7 @@ require (
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.9 // indirect
 	github.com/valyala/fasthttp v1.31.0
+	go.etcd.io/etcd/client/v3 v3.5.1 // indirect
 	golang.org/x/sys v0.0.0-20210903071746-97244b99971b // indirect
 	gorm.io/driver/mysql v1.2.0
 	gorm.io/gorm v1.22.3
