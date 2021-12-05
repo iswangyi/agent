@@ -36,18 +36,17 @@ func main() {
 		DialTimeout: 5 * time.Second,
 	}
 	if client, err = clientv3.New(config); err != nil {
-		fmt.Println(err)
 		return
 	}
 
 	kv = clientv3.NewKV(client)
 	jsonStr := RunTask()
-	fmt.Println(jsonStr)
 	//TODO() 占位
-	putResp, err := kv.Put(
+	putResp, _ := kv.Put(
 		context.TODO(),
 		"/cron/jobs/127.0.0.1/"+taskID,
 		jsonStr,
 		clientv3.WithPrevKV())
-	fmt.Println(putResp, err)
+	fmt.Println(putResp)
+
 }
