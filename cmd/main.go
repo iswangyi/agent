@@ -5,6 +5,7 @@ import (
 	"agent/http"
 	"agent/logger"
 	"agent/metrics"
+	"agent/models"
 	"agent/settings"
 	"fmt"
 	goHttp "net/http"
@@ -30,8 +31,13 @@ func main() {
 		fmt.Println("Start error, [start|stop|version]")
 		os.Exit(1)
 	}
+	//初始化配置文件
 	settings.LoadConfiguration()
+	//加载数据库
+	models.Db()
+	//初始化监控项
 	metrics.BuildMappers()
+	//执行监控
 	collector.Collect()
 	if strings.ToLower(os.Args[1]) == "main" {
 		http.Start()

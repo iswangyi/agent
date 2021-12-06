@@ -20,6 +20,13 @@ type GlobalConfig struct {
 	Transfer  *TransferConfig  `json:"transfer"`
 	Http      *HttpConfig      `json:"http"`
 	Collector *CollectorConfig `json:"collector"`
+	Mysql     *MysqlConfig     `json:"mysql"`
+}
+type MysqlConfig struct {
+	MysqlHost   string `json:"mysqlhost"`
+	MysqlPort   string `json:"mysqlport"`
+	MysqlUser   string `json:"mysqluser"`
+	MysqlPasswd string `json:"mysqlpasswd"`
 }
 
 type TransferConfig struct {
