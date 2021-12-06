@@ -21,6 +21,17 @@ type GlobalConfig struct {
 	Http      *HttpConfig      `json:"http"`
 	Collector *CollectorConfig `json:"collector"`
 	Mysql     *MysqlConfig     `json:"mysql"`
+	HeartBeat *HeartBeatConfig `json:"heartbeat"`
+	Registrar *RegistrarConfig `json:"registrar"`
+}
+type RegistrarConfig struct {
+	Enable bool     `json:"enable"`
+	Addrs  []string `json:"addrs"`
+}
+
+type HeartBeatConfig struct {
+	Enable   bool `json:"enable"`
+	Interval int  `json:"interval"`
 }
 type MysqlConfig struct {
 	MysqlHost   string `json:"mysqlhost"`
@@ -40,7 +51,7 @@ type HttpConfig struct {
 }
 
 type CollectorConfig struct {
-	IfacePreifx []string `json:"iface_preifx"`
+	Collector []string `json:"collector"`
 }
 
 var (
